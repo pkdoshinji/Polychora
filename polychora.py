@@ -55,7 +55,7 @@ def get_random_rotation(N, theta):
     normed2 = u2 / np.sqrt((np.dot(u2, u2)))
 
     # Plug into the generalized N-dimensional Rodrigues rotation formula:
-    # R = I + ((n_2⨂n_1)-(n_1⨂n_2))sin⁡α + ((n_1⨂n_1)+(n_2⨂n_2))(cos⁡α-1)
+    # R = I + ((n2⨂n1)-(n1⨂n2))sin(⁡α) + ((n1⨂n1)+(n2⨂n2))(cos(⁡α)-1)
     M1 = np.identity(N)
     M2 = np.sin(theta) * (np.outer(normed2, normed1) - np.outer(normed1, normed2))
     M3 = (np.cos(theta) - 1) * (np.outer(normed1, normed1) + np.outer(normed2, normed2))
