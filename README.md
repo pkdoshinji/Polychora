@@ -1,7 +1,7 @@
 # Polychora
 Python animation of uniform polychora in four and higher dimensions. 
 
-![](Images/three.gif)
+![](Images/three4.gif)
 
 ### Installation
 
