@@ -44,6 +44,27 @@ def get_random_rotation(N, theta):
 # Returns N-dimensional rotation matrix of theta radians w/ random orientation
 
     # Two random vectors define a hyperplane of rotation
+    v1 = np.random.randn(N)
+    v2 = np.random.randn(N)
+
+    # Use Gram-Schmidt to orthogonalize these vectors
+    v2 -= (np.dot(v1, v2) / np.dot(v1, v1)) * v1
+
+    # Then normalize
+    v1 /= np.linalg.norm(v1, axis=0)
+    v2 /= np.linalg.norm(v2, axis=0)
+
+    # Plug into the generalized N-dimensional Rodrigues rotation formula:
+    # R = I + ((n2⨂n1)-(n1⨂n2))sin( α) + ((n1⨂n1)+(n2⨂n2))(cos( α)-1)
+    M1 = np.identity(N)
+    M2 = np.sin(theta) * (np.outer(v2, v1) - np.outer(v1, v2))
+    M3 = (np.cos(theta) - 1) * (np.outer(v1, v1) + np.outer(v2, v2))
+    return M1 + M2 + M3
+
+def get_random_rotation(N, theta):
+# Returns N-dimensional rotation matrix of theta radians w/ random orientation
+
+    # Two random vectors define a hyperplane of rotation
     v1 = np.array([np.random.uniform(-1, 1) for i in range(N)])
     v2 = np.array([np.random.uniform(-1, 1) for i in range(N)])
 
