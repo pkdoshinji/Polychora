@@ -61,27 +61,6 @@ def get_random_rotation(N, theta):
     M3 = (np.cos(theta) - 1) * (np.outer(v1, v1) + np.outer(v2, v2))
     return M1 + M2 + M3
 
-def get_random_rotation(N, theta):
-# Returns N-dimensional rotation matrix of theta radians w/ random orientation
-
-    # Two random vectors define a hyperplane of rotation
-    v1 = np.array([np.random.uniform(-1, 1) for i in range(N)])
-    v2 = np.array([np.random.uniform(-1, 1) for i in range(N)])
-
-    # Use Gram-Schmidt to orthogonalize these vectors
-    u2 = v2 - (np.dot(v1, v2) / np.dot(v1, v1)) * v1
-
-    # Then normalize
-    normed1 = v1 / np.sqrt((np.dot(v1, v1)))
-    normed2 = u2 / np.sqrt((np.dot(u2, u2)))
-
-    # Plug into the generalized N-dimensional Rodrigues rotation formula:
-    # R = I + ((n2⨂n1)-(n1⨂n2))sin(⁡α) + ((n1⨂n1)+(n2⨂n2))(cos(⁡α)-1)
-    M1 = np.identity(N)
-    M2 = np.sin(theta) * (np.outer(normed2, normed1) - np.outer(normed1, normed2))
-    M3 = (np.cos(theta) - 1) * (np.outer(normed1, normed1) + np.outer(normed2, normed2))
-    return M1 + M2 + M3
-
 
 def project_from_N(D, N, vecs):
 # Project from dimension N to dimension N-1 w.r.t. camera at D
